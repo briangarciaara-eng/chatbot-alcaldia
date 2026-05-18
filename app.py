@@ -19,6 +19,7 @@ TEMAS_DISPONIBLES = [
 ]
 
 PREGUNTAS_GENERALES = [
+    "que servicio",
     "que servicios",
     "que puedo consultar",
     "como me puede ayudar",

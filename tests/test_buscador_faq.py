@@ -46,6 +46,20 @@ def test_respuesta_general_muestra_temas_disponibles():
     assert "citas del Sisben" in respuesta
 
 
+def test_respuesta_general_en_singular_muestra_temas_disponibles():
+    respuesta = generar_respuesta("que servicio presta la alcaldia")
+
+    assert "Puedo orientarte" in respuesta
+    assert "recoleccion de aseo" in respuesta
+
+
+def test_consulta_amplia_sobre_aseo_encuentra_contexto():
+    contexto = obtener_contexto_local("quiero saber toda la informacion disponible sobre aseo")
+
+    assert "camion de recoleccion de aseo" in contexto
+    assert "6:00 AM a 10:00 AM" in contexto
+
+
 def test_respuesta_sin_contexto_no_llama_al_modelo():
     respuesta = generar_respuesta("donde esta ubicada la alcaldia")
 
