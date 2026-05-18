@@ -10,6 +10,7 @@ El proyecto usa Python, un archivo de preguntas frecuentes en CSV y Groq para ge
 app.py
 data/
   faqs.csv
+  README.md
 services/
   buscador_faq.py
   groq_service.py
@@ -36,6 +37,24 @@ El archivo `.env` no se debe subir a GitHub. Para eso esta incluido en `.gitigno
 .venv\Scripts\activate
 python app.py
 ```
+
+## Adaptar A Otro Cliente
+
+Este proyecto esta armado como plantilla. Para usarlo con otro tipo de cliente:
+
+1. Edita `data/faqs.csv` con preguntas y respuestas oficiales del cliente.
+2. Ajusta `NOMBRE_ASISTENTE` en `app.py`.
+3. Ajusta `TEMAS_DISPONIBLES` en `app.py`.
+4. Agrega sinonimos importantes en `services/buscador_faq.py`.
+5. Crea pruebas nuevas en `tests/test_buscador_faq.py`.
+
+Ejemplos:
+
+- Consultorio odontologico: citas, limpieza dental, urgencias, horarios, direccion, medios de pago.
+- Institucion educativa: matriculas, pensiones, horarios, certificados, calendario academico.
+- Alcaldia: impuestos, aseo, Sisbén, infraestructura, PQRS, canales oficiales.
+
+Si el bot no encuentra contexto confiable, responde con una salida controlada en vez de inventar informacion.
 
 ## Probar Busqueda Local
 

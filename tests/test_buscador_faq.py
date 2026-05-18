@@ -1,4 +1,5 @@
 from services.buscador_faq import buscar_faqs_relevantes, obtener_contexto_local
+from app import generar_respuesta
 
 
 def primera_pregunta_encontrada(consulta):
@@ -35,3 +36,18 @@ def test_contexto_indica_sin_informacion_si_no_hay_coincidencia():
     contexto = obtener_contexto_local("quiero renovar mi pasaporte")
 
     assert "No hay informacion especifica" in contexto
+
+
+def test_respuesta_general_muestra_temas_disponibles():
+    respuesta = generar_respuesta("que servicios presta la alcaldia")
+
+    assert "Puedo orientarte" in respuesta
+    assert "impuesto predial" in respuesta
+    assert "citas del Sisben" in respuesta
+
+
+def test_respuesta_sin_contexto_no_llama_al_modelo():
+    respuesta = generar_respuesta("donde esta ubicada la alcaldia")
+
+    assert "No tengo esa informacion" in respuesta
+    assert "recoleccion de aseo" in respuesta

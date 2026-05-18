@@ -5,6 +5,7 @@ from difflib import SequenceMatcher
 from pathlib import Path
 
 RUTA_FAQS = Path(__file__).resolve().parent.parent / "data" / "faqs.csv"
+MENSAJE_SIN_INFORMACION = "No hay informacion especifica en el manual de procesos locales."
 
 PALABRAS_VACIAS = {
     "a",
@@ -130,7 +131,7 @@ def buscar_faqs_relevantes(pregunta_usuario, ruta_csv=RUTA_FAQS, max_resultados=
 
 def construir_contexto(faqs):
     if not faqs:
-        return "No hay informacion especifica en el manual de procesos locales."
+        return MENSAJE_SIN_INFORMACION
 
     bloques = []
     for faq in faqs:
@@ -148,6 +149,10 @@ def obtener_contexto_local(pregunta_usuario, ruta_csv=RUTA_FAQS, max_resultados=
         faqs = buscar_faqs_relevantes(pregunta_usuario, ruta_csv, max_resultados)
     except FileNotFoundError:
         print("Nota: Archivo faqs.csv no encontrado. Continuando sin contexto local.")
-        return "No hay informacion especifica en el manual de procesos locales."
+        return MENSAJE_SIN_INFORMACION
 
     return construir_contexto(faqs)
+
+
+def hay_contexto_disponible(contexto):
+    return contexto != MENSAJE_SIN_INFORMACION
