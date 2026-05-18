@@ -8,6 +8,7 @@ El proyecto usa Python, un archivo de preguntas frecuentes en CSV y Groq para ge
 
 ```text
 app.py
+api.py
 data/
   faqs.csv
   README.md
@@ -15,7 +16,12 @@ services/
   buscador_faq.py
   groq_service.py
 tests/
+  test_api.py
   test_buscador_faq.py
+web/
+  index.html
+  styles.css
+  app.js
 .env.example
 .gitignore
 README.md
@@ -33,9 +39,35 @@ El archivo `.env` no se debe subir a GitHub. Para eso esta incluido en `.gitigno
 
 ## Ejecutar
 
+Instala dependencias:
+
+```powershell
+pip install -r requirements.txt
+```
+
+Consola:
+
 ```powershell
 .venv\Scripts\activate
 python app.py
+```
+
+API y frontend web:
+
+```powershell
+uvicorn api:api --reload
+```
+
+Luego abre:
+
+```text
+http://127.0.0.1:8000
+```
+
+Documentacion automatica de la API:
+
+```text
+http://127.0.0.1:8000/docs
 ```
 
 ## Adaptar A Otro Cliente
