@@ -75,6 +75,19 @@ def test_consulta_de_salud_tiene_fallback_prudente():
     assert "centro de salud" in respuesta
 
 
+def test_consulta_medica_tiene_fallback_prudente():
+    respuesta = generar_respuesta("necesito un medico")
+
+    assert "No tengo informacion de servicios de salud" in respuesta
+    assert "centro de salud" in respuesta
+
+
+def test_ayuda_con_tema_concreto_no_muestra_menu_generico():
+    contexto = obtener_contexto_local("ayuda con el sisben")
+
+    assert "citas se agendan" in contexto
+
+
 def test_consulta_amplia_sobre_aseo_encuentra_contexto():
     contexto = obtener_contexto_local("quiero saber toda la informacion disponible sobre aseo")
 

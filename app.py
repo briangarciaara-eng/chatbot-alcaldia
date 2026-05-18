@@ -18,11 +18,14 @@ TEMAS_DISPONIBLES = [
     "citas del Sisben",
 ]
 
-PREGUNTAS_GENERALES = [
+PREGUNTAS_GENERALES_EXACTAS = {
     "ayuda",
     "informacion",
     "servicio",
     "servicios",
+}
+
+PREGUNTAS_GENERALES = [
     "que servicio",
     "que servicios",
     "que puedo consultar",
@@ -55,6 +58,8 @@ SINTOMAS_SALUD = [
     "duele",
     "cuerpo",
     "fiebre",
+    "medico",
+    "doctor",
     "urgencia medica",
     "salud",
 ]
@@ -90,6 +95,9 @@ def construir_respuesta_salud():
 
 def es_pregunta_general(pregunta):
     pregunta_normalizada = normalizar_texto(pregunta)
+    if pregunta_normalizada in PREGUNTAS_GENERALES_EXACTAS:
+        return True
+
     return any(frase in pregunta_normalizada for frase in PREGUNTAS_GENERALES)
 
 
