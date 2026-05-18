@@ -28,7 +28,18 @@ PREGUNTAS_GENERALES_EXACTAS = {
 PREGUNTAS_GENERALES = [
     "que servicio",
     "que servicios",
+    "que hace la alcaldia",
+    "que hace el municipio",
+    "que hace esta entidad",
+    "a que se dedica la alcaldia",
+    "a que se dedica el municipio",
     "que puedo consultar",
+    "como apoya la alcaldia",
+    "como me apoya la alcaldia",
+    "como apoya el municipio",
+    "como me apoya el municipio",
+    "como ayuda la alcaldia",
+    "como ayuda el municipio",
     "como me puede ayudar",
     "en que me puedes ayudar",
     "en que me puede ayudar",
@@ -71,6 +82,16 @@ def construir_menu_temas():
         "Puedo orientarte sobre la informacion que tengo cargada actualmente:\n"
         f"{temas}\n\n"
         "Sobre cual tema necesitas ayuda?"
+    )
+
+
+def construir_mensaje_bienvenida():
+    return (
+        f"Bienvenido al {NOMBRE_ASISTENTE}.\n"
+        "Estoy entrenado para orientarte sobre estos temas:\n"
+        f"{chr(10).join(f'{indice}. {tema}' for indice, tema in enumerate(TEMAS_DISPONIBLES, start=1))}\n\n"
+        "Escribe tu pregunta o el tema sobre el que necesitas ayuda. "
+        "Para terminar, escribe 'salir'."
     )
 
 
@@ -129,7 +150,8 @@ def generar_respuesta(entrada):
 
 
 def iniciar_chat():
-    print(f"[{NOMBRE_ASISTENTE}] En linea. Escribe 'salir' para terminar.\n")
+    print(f"[{NOMBRE_ASISTENTE}] En linea.\n")
+    print(f"Bot: {construir_mensaje_bienvenida()}\n")
 
     while True:
         entrada = input("Ciudadano: ")

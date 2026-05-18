@@ -1,5 +1,5 @@
 from services.buscador_faq import buscar_faqs_relevantes, obtener_contexto_local
-from app import generar_respuesta
+from app import construir_mensaje_bienvenida, generar_respuesta
 
 
 def primera_pregunta_encontrada(consulta):
@@ -46,11 +46,36 @@ def test_respuesta_general_muestra_temas_disponibles():
     assert "citas del Sisben" in respuesta
 
 
+def test_mensaje_bienvenida_muestra_menu_inicial():
+    mensaje = construir_mensaje_bienvenida()
+
+    assert "Bienvenido" in mensaje
+    assert "1. impuesto predial" in mensaje
+    assert "4. citas del Sisben" in mensaje
+    assert "salir" in mensaje
+
+
 def test_respuesta_general_en_singular_muestra_temas_disponibles():
     respuesta = generar_respuesta("que servicio presta la alcaldia")
 
     assert "Puedo orientarte" in respuesta
     assert "recoleccion de aseo" in respuesta
+
+
+def test_preguntas_sobre_funcion_o_apoyo_muestran_temas_disponibles():
+    consultas = [
+        "que hace la alcaldia",
+        "a que se dedica la alcaldia",
+        "como ayuda la alcaldia",
+        "como apoya la alcaldia al ciudadano",
+        "como me apoya la alcaldia",
+    ]
+
+    for consulta in consultas:
+        respuesta = generar_respuesta(consulta)
+
+        assert "Puedo orientarte" in respuesta
+        assert "impuesto predial" in respuesta
 
 
 def test_consulta_generica_muestra_temas_disponibles():
