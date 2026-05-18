@@ -53,6 +53,28 @@ def test_respuesta_general_en_singular_muestra_temas_disponibles():
     assert "recoleccion de aseo" in respuesta
 
 
+def test_consulta_generica_muestra_temas_disponibles():
+    respuesta = generar_respuesta("tengo una consulta")
+
+    assert "Puedo orientarte" in respuesta
+    assert "impuesto predial" in respuesta
+
+
+def test_palabras_generales_cortas_muestran_temas_disponibles():
+    for consulta in ["ayuda", "informacion", "servicios"]:
+        respuesta = generar_respuesta(consulta)
+
+        assert "Puedo orientarte" in respuesta
+        assert "recoleccion de aseo" in respuesta
+
+
+def test_consulta_de_salud_tiene_fallback_prudente():
+    respuesta = generar_respuesta("me duele el cuerpo como me pueden ayudar")
+
+    assert "No tengo informacion de servicios de salud" in respuesta
+    assert "centro de salud" in respuesta
+
+
 def test_consulta_amplia_sobre_aseo_encuentra_contexto():
     contexto = obtener_contexto_local("quiero saber toda la informacion disponible sobre aseo")
 

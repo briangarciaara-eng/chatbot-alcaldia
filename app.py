@@ -19,6 +19,10 @@ TEMAS_DISPONIBLES = [
 ]
 
 PREGUNTAS_GENERALES = [
+    "ayuda",
+    "informacion",
+    "servicio",
+    "servicios",
     "que servicio",
     "que servicios",
     "que puedo consultar",
@@ -27,6 +31,9 @@ PREGUNTAS_GENERALES = [
     "en que me puede ayudar",
     "que haces",
     "que sabes",
+    "tengo una consulta",
+    "tengo una duda",
+    "necesito ayuda",
 ]
 
 DATOS_INSTITUCIONALES = [
@@ -39,6 +46,17 @@ DATOS_INSTITUCIONALES = [
     "ciudad",
     "horario de atencion",
     "sede",
+]
+
+SINTOMAS_SALUD = [
+    "enfermo",
+    "enferma",
+    "dolor",
+    "duele",
+    "cuerpo",
+    "fiebre",
+    "urgencia medica",
+    "salud",
 ]
 
 
@@ -60,6 +78,16 @@ def construir_respuesta_sin_contexto():
     )
 
 
+def construir_respuesta_salud():
+    return (
+        "No tengo informacion de servicios de salud en la base de conocimiento disponible. "
+        "Si tienes sintomas fuertes, una urgencia o te sientes en riesgo, comunicate con los "
+        "servicios de emergencia o acude al centro de salud mas cercano. "
+        "Actualmente puedo orientarte sobre:\n"
+        f"{chr(10).join(f'- {tema}' for tema in TEMAS_DISPONIBLES)}"
+    )
+
+
 def es_pregunta_general(pregunta):
     pregunta_normalizada = normalizar_texto(pregunta)
     return any(frase in pregunta_normalizada for frase in PREGUNTAS_GENERALES)
@@ -70,7 +98,15 @@ def pide_dato_institucional(pregunta):
     return any(dato in pregunta_normalizada for dato in DATOS_INSTITUCIONALES)
 
 
+def parece_consulta_salud(pregunta):
+    pregunta_normalizada = normalizar_texto(pregunta)
+    return any(sintoma in pregunta_normalizada for sintoma in SINTOMAS_SALUD)
+
+
 def generar_respuesta(entrada):
+    if parece_consulta_salud(entrada):
+        return construir_respuesta_salud()
+
     if es_pregunta_general(entrada):
         return construir_menu_temas()
 
